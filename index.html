@@ -3,47 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zakhar (Dornsen) | Software Engineer</title>
+    <title>Dornsen | Terminal</title>
     <style>
         body {
-            background-color: #0d1117; /* Цвет GitHub Dark */
-            color: #c9d1d9;
+            background-color: #050505;
+            color: #d4d4d4;
             font-family: 'Courier New', Courier, monospace;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            line-height: 1.6;
+            padding: 20px;
+            margin: 0;
+            overflow-x: hidden;
         }
-        a { color: #58a6ff; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        h1, h2 { color: #ffffff; border-bottom: 1px solid #30363d; padding-bottom: 10px; }
-        .project { margin-bottom: 30px; }
+        #terminal { max-width: 800px; margin: 0 auto; }
+        .output { margin-bottom: 10px; line-height: 1.5; }
+        .command-line { display: flex; }
+        .prompt { color: #569cd6; margin-right: 10px; white-space: nowrap; }
+        input {
+            background: transparent;
+            border: none;
+            color: #ce9178;
+            font-family: inherit;
+            font-size: inherit;
+            width: 100%;
+            outline: none;
+        }
+        .highlight { color: #4ec9b0; font-weight: bold; }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Dornsen.sys</h1>
-        <p>Software Engineer | Kuopio, Finland</p>
-        <p><a href="https://github.com/Dornsen">GitHub</a> | <a href="mailto:твоя_почта">Email</a></p>
-    </header>
 
-    <section>
-        <h2>> Systems & Builds</h2>
-        
-        <div class="project">
-            <h3>[ Nodo ]</h3>
-            <p>Scalable custom messaging architecture. Focus on backend stability and realtime communication.</p>
-        </div>
+<div id="terminal">
+    <div class="output">
+        Dornsen.sys [Version 1.0.0]<br>
+        (c) Zakhar Matvieiev. All rights reserved.<br><br>
+        Type <span class="highlight">'help'</span> to see available commands.
+    </div>
+    <div id="history"></div>
+    <div class="command-line">
+        <span class="prompt">guest@dornsen:~$</span>
+        <input type="text" id="cmd" autocomplete="off" autofocus>
+    </div>
+</div>
 
-        <div class="project">
-            <h3>[ 2D RPG Framework ]</h3>
-            <p>Unity-based core mechanics, heavily utilizing the new Input System package for flexible controls.</p>
-        </div>
+<script>
+    const input = document.getElementById('cmd');
+    const history = document.getElementById('history');
 
-        <div class="project">
-            <h3>[ Kiri ]</h3>
-            <p>Japanese-themed web card game featuring core gacha mechanics.</p>
-        </div>
-    </section>
+    // База данных твоих систем
+    const commands = {
+        'help': 'Available commands: about, projects, skills, clear',
+        'about': 'Software Engineer based in Finland. Architecting scalable systems.',
+        'projects': `
+            [1] Nodo - Scalable custom messaging architecture<br>
+            [2] 2D RPG - Unity core mechanics (New Input System)<br>
+            [3] Kiri - Japanese-themed web card game with gacha mechanics`,
+        'skills': 'C++, C#, Node.js, SQL, Unity, System Architecture'
+    };
+
+    input.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            const cmd = input.value.trim().toLowerCase();
+            let response = '';
+
+            if (cmd === 'clear') {
+                history.innerHTML = '';
+                input.value = '';
+                return;
+            }
+
+            if (commands[cmd]) {
+                response = commands[cmd];
+            } else if (cmd !== '') {
+                response = `Command not found: ${cmd}. Type 'help' for a list of commands.`;
+            }
+
+            // Добавляем введенную команду и ответ в историю
+            history.innerHTML += `
+                <div class="command-line">
+                    <span class="prompt">guest@dornsen:~$</span> ${cmd}
+                </div>
+                <div class="output">${response}</div><br>
+            `;
+            
+            input.value = '';
+            window.scrollTo(0, document.body.scrollHeight); // Автоскролл вниз
+        }
+    });
+
+    // Удерживаем фокус на поле ввода
+    document.addEventListener('click', () => input.focus());
+</script>
+
 </body>
 </html>
