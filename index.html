@@ -1,97 +1,99 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dornsen | Terminal</title>
-    <style>
-        body {
-            background-color: #050505;
-            color: #d4d4d4;
-            font-family: 'Courier New', Courier, monospace;
-            padding: 20px;
-            margin: 0;
-            overflow-x: hidden;
-        }
-        #terminal { max-width: 800px; margin: 0 auto; }
-        .output { margin-bottom: 10px; line-height: 1.5; }
-        .command-line { display: flex; }
-        .prompt { color: #569cd6; margin-right: 10px; white-space: nowrap; }
-        input {
-            background: transparent;
-            border: none;
-            color: #ce9178;
-            font-family: inherit;
-            font-size: inherit;
-            width: 100%;
-            outline: none;
-        }
-        .highlight { color: #4ec9b0; font-weight: bold; }
-    </style>
-</head>
-<body>
+<!-- HEADER SECTION -->
+<div class="line" id="title">
+  <div class="prompt">&gt;</div>
+  <div class="content">
+    <div class="name">&gt; Name: Zakhar (Dornsen) Matvieiev</div>
+    <div class="meta">// Role: Software Engineer | System Architecture | Game Engines</div>
+    <div class="meta">// Location: Kuopio, Finland</div>
+    <div class="meta">// Education: Software Engineering at KhPI &amp; SAKKY</div>
 
-<div id="terminal">
-    <div class="output">
-        Dornsen.sys [Version 1.0.0]<br>
-        (c) Zakhar Matvieiev. All rights reserved.<br><br>
-        Type <span class="highlight">'help'</span> to see available commands.
+    <div class="links" style="margin-top:10px;">
+      <a href="#" aria-label="GitHub profile">GitHub</a>
+      <a href="#" aria-label="LinkedIn profile">LinkedIn</a>
+      <a href="#" aria-label="Send email">Email</a>
     </div>
-    <div id="history"></div>
-    <div class="command-line">
-        <span class="prompt">guest@dornsen:~$</span>
-        <input type="text" id="cmd" autocomplete="off" autofocus>
-    </div>
+  </div>
 </div>
 
-<script>
-    const input = document.getElementById('cmd');
-    const history = document.getElementById('history');
+<!-- ACTIVE_BUILDS / PROJECTS -->
+<div class="line" style="margin-top:18px;">
+  <div class="prompt">//</div>
+  <div class="content">
+    <div class="section-title">// ACTIVE_BUILDS</div>
 
-    // База данных твоих систем
-    const commands = {
-        'help': 'Available commands: about, projects, skills, clear',
-        'about': 'Software Engineer based in Finland. Architecting scalable systems.',
-        'projects': `
-            [1] Nodo - Scalable custom messaging architecture<br>
-            [2] 2D RPG - Unity core mechanics (New Input System)<br>
-            [3] Kiri - Japanese-themed web card game with gacha mechanics`,
-        'skills': 'C++, C#, Node.js, SQL, Unity, System Architecture'
-    };
+    <div class="project" role="article" aria-label="Nodo project">
+      <div class="proj-title">
+        <span class="proj-name">[ Nodo ]</span>
+      </div>
+      <div class="proj-desc">
+        A scalable custom messaging application. Focus on backend stability, real-time data processing, and clean architecture.
+        <span style="color:var(--muted)"> (Tags: C#, Node.js, SQL, Backend)</span>
+      </div>
+      <div class="tags" aria-hidden="true">
+        <span class="tag">C#</span>
+        <span class="tag">Node.js</span>
+        <span class="tag">SQL</span>
+        <span class="tag">Backend</span>
+      </div>
+    </div>
 
-    input.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            const cmd = input.value.trim().toLowerCase();
-            let response = '';
+    <div class="project" role="article" aria-label="2D RPG Framework project">
+      <div class="proj-title">
+        <span class="proj-name">[ 2D RPG Framework ]</span>
+      </div>
+      <div class="proj-desc">
+        Core game systems and movement mechanics built in Unity. Engineered utilizing the New Input System package for flexible and modern control mapping.
+        <span style="color:var(--muted)"> (Tags: C#, Unity, GameDev)</span>
+      </div>
+      <div class="tags" aria-hidden="true">
+        <span class="tag">C#</span>
+        <span class="tag">Unity</span>
+        <span class="tag">GameDev</span>
+      </div>
+    </div>
 
-            if (cmd === 'clear') {
-                history.innerHTML = '';
-                input.value = '';
-                return;
-            }
+    <div class="project" role="article" aria-label="Kiri project">
+      <div class="proj-title">
+        <span class="proj-name">[ Kiri ]</span>
+      </div>
+      <div class="proj-desc">
+        A Japanese-themed web card game featuring core gacha mechanics and scalable logic.
+        <span style="color:var(--muted)"> (Tags: System Design, Web)</span>
+      </div>
+      <div class="tags" aria-hidden="true">
+        <span class="tag">System Design</span>
+        <span class="tag">Web</span>
+      </div>
+    </div>
+  </div>
+</div>
 
-            if (commands[cmd]) {
-                response = commands[cmd];
-            } else if (cmd !== '') {
-                response = `Command not found: ${cmd}. Type 'help' for a list of commands.`;
-            }
+<!-- TECH STACK -->
+<div class="line" style="margin-top:12px;">
+  <div class="prompt">//</div>
+  <div class="content">
+    <div class="section-title">// TECH STACK</div>
 
-            // Добавляем введенную команду и ответ в историю
-            history.innerHTML += `
-                <div class="command-line">
-                    <span class="prompt">guest@dornsen:~$</span> ${cmd}
-                </div>
-                <div class="output">${response}</div><br>
-            `;
-            
-            input.value = '';
-            window.scrollTo(0, document.body.scrollHeight); // Автоскролл вниз
-        }
-    });
+    <div class="kv" style="margin-top:6px;">
+      <div class="label">Languages:</div>
+      <div> C++, C#, Node.js, SQL </div>
+    </div>
 
-    // Удерживаем фокус на поле ввода
-    document.addEventListener('click', () => input.focus());
-</script>
+    <div class="kv" style="margin-top:8px;">
+      <div class="label">Engines &amp; Tools:</div>
+      <div> Unity, Git, GitHub Actions </div>
+    </div>
 
-</body>
-</html>
+    <div class="kv" style="margin-top:8px;">
+      <div class="label">Focus:</div>
+      <div> Multithreading, Graphics Rendering, Low-level OS mechanisms. </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px">
+    <div>// Small, focused, and production-ready — no fluff.</div>
+    <div style="color:var(--muted)">Built for GitHub Pages</div>
+  </div>
+</footer>
